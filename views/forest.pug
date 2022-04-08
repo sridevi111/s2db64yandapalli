@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1= title
+  -
+    let results = [
+      {
+        "forest_location": "America",
+        "forest_size": "Small",
+        "forest_name": "Tongass forest"
+      },
+      {
+        "forest_location": "Australia",
+        "forest_size": "Medium",
+        "forest_name": "Casuarina forest"
+      },
+      {
+        "forest_location": "India",
+        "forest_size": "Large",
+        "forest_name": "Chandaka forest"
+      },                   
+    ]
+  div(class= "container-fluid")
+    div(class = "row")
+      each item,index in results
+        div(class= "col-sm-2", onclick=`buy(${index})`) #{item.forest_location}
+        div(class= "col-sm-2", onclick=`buy(${index})`) #{item.forest_size}
+        div(class= "col-sm-2", onclick=`buy(${index})`) #{item.forest_name}
+
+  script.
+    function buy(itemNum){
+      alert(`Whats your forest name?{itemNum+1}`)
+    }
