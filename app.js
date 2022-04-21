@@ -4,11 +4,63 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
+var forest = require("./models/forest");
+
+// We can seed the collection if needed on
+//server start
+async function recreateDB(){
+// Delete everything
+await forest.deleteMany();
+let instance1 = new
+forest(
+  {
+    forest_location:"Maryville", 
+    forest_size:'Large',
+    forest_name:"Anaconda"
+});
+let instance2 = new
+forest(
+  {
+    forest_location:"Kansas", 
+    forest_size:'Medium',
+    forest_name:"Nalamala"
+});
+let instance3 = new
+forest(
+  {
+    forest_location:"Dallas", 
+    forest_size:'Small',
+    forest_name:"Nagaram"
+});
+instance1.save( function(err,doc) {
+if(err) return console.error(err);
+console.log("First object saved")
+});
+instance2.save( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Second object saved")
+  });
+  instance3.save( function(err,doc) {
+    if(err) return console.error(err);
+    console.log("Third object saved")
+    });
+}
+let reseed = true;
+if (reseed) { recreateDB();}
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var forestRouter = require('./routes/forest');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource')
 
 var app = express();
 
@@ -27,6 +79,8 @@ app.use('/users', usersRouter);
 app.use('/forest', forestRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
+app.use('/',resourceRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

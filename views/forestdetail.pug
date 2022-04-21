@@ -1,0 +1,22 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let forestid = toShow._id 
+  - let forest_location = toShow.forest_location
+  - let forestsize = toShow.forest_size
+  - let forestname = toShow.forest_name
+  div 
+    div.row 
+      div(class='forestAttr mr-3') forest ID is: 
+      div #{forestid} 
+    div.row 
+      div(class='forestAttr mr-3') forest Type is: 
+      div #{forest_location} 
+    div.row 
+      div(class='forestAttr mr-3') forest Size is: 
+      div #{forestsize} 
+    div.row 
+      div(class='forestAttr mr-3') forest Cost is: 
+      div #{forestname} 
