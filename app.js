@@ -16,44 +16,44 @@ var forest = require("./models/forest");
 // We can seed the collection if needed on
 //server start
 async function recreateDB(){
-// Delete everything
-await forest.deleteMany();
-let instance1 = new
-forest(
-  {
-    forest_location:"Maryville", 
-    forest_size:'Large',
-    forest_name:"Anaconda"
-});
-let instance2 = new
-forest(
-  {
-    forest_location:"Kansas", 
-    forest_size:'Medium',
-    forest_name:"Nalamala"
-});
-let instance3 = new
-forest(
-  {
-    forest_location:"Dallas", 
-    forest_size:'Small',
-    forest_name:"Nagaram"
-});
-instance1.save( function(err,doc) {
-if(err) return console.error(err);
-console.log("First object saved")
-});
-instance2.save( function(err,doc) {
-  if(err) return console.error(err);
-  console.log("Second object saved")
+  // Delete everything
+  await forest.deleteMany();
+  let instance1 = new
+  forest(
+    {
+      forest_location:"Maryville", 
+      forest_size:'Large',
+      forest_name:"Anaconda"
   });
-  instance3.save( function(err,doc) {
+  let instance2 = new
+  forest(
+    {
+      forest_location:"Kansas", 
+      forest_size:'Medium',
+      forest_name:"Nalamala"
+  });
+  let instance3 = new
+  forest(
+    {
+      forest_location:"Dallas", 
+      forest_size:'Small',
+      forest_name:"Nagaram"
+  });
+  instance1.save( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("First object saved")
+  });
+  instance2.save( function(err,doc) {
     if(err) return console.error(err);
-    console.log("Third object saved")
+    console.log("Second object saved")
     });
-}
-let reseed = true;
-if (reseed) { recreateDB();}
+    instance3.save( function(err,doc) {
+      if(err) return console.error(err);
+      console.log("Third object saved")
+      });
+  }
+  let reseed = true;
+  if (reseed) { recreateDB();}
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
